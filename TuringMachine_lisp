@@ -1,0 +1,45 @@
+( defun car_n (x) (
+			cond
+                ( (equal x nil) " " )
+                ( t (car x) )
+    ))
+
+(defun simulate (i_curr i_u i_d) ((lambda (curr u d)
+
+    ( defun head (x) (car_n u) )
+    ( defun R (x) ( list (cdr u) (cons x d) ) )
+    ( defun L (x) ( list (cons x u) (cdr d) ) )
+    ( defun check (q a) ( equal (list q a) (list curr (head())) ) )
+    ( defun transition (p dir) (simulate p (car_n dir) (car_n (cdr dir))) )
+
+    #(print
+        (list "debug | current state:" curr
+         "upper part:" u
+         "lower part:" d
+         " * " (L 0))
+    )
+
+    (cond
+        (
+            (equal curr "final_state")
+            (print "success")
+        )
+
+        (
+            (check "start_state" 1)
+            (transition "intermidiate" (R 0))
+        )
+        (
+            (check "intermidiate" 1)
+            (transition "final_state" (R 0))
+        )
+
+        (
+            T
+            (print (list "failed" curr u d))
+        )
+    )
+
+) i_curr i_u i_d))
+
+(simulate "start_state" (list 1 1 1) (list ))
